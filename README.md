@@ -37,7 +37,7 @@ python2 scripts/random_sampling samples/ tigress_mba_trace.bin x86_64 20 mba_sam
 
 It can be specified if memory and/or register locations are inputs/outputs.
 
-# Program Synthesis for Obfuscated Code
+## Program Synthesis for Obfuscated Code
 
 `sample_synthesis` uses the I/O samples and synthesizes the semantics of each input. It is possible to synthesize only specific outputs (e.g., `EAX`):
 

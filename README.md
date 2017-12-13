@@ -21,7 +21,7 @@ The `scripts` demonstrate the usage of the framework.
 To symbolically execute an instruction trace of an obfuscated expressions, use
 
 ```
-python2 scripts/miasm_se_oracle.py samples/tigress_mba_trace.bin x86_64
+python2 scripts/symbolic_execution.py samples/tigress_mba_trace.bin x86_64
 
 ```
 
@@ -32,7 +32,7 @@ In this example, the expression is obfuscated via Mixed Boolean-Arithmetic (MBA)
 `random_sampling.py` generates random I/O pairs for a piece of code. Its output is a JSON file. To sample 20 times, use 
 
 ```
-python2 scripts/random_sampling samples/ tigress_mba_trace.bin x86_64 20 mba_sampling.json
+python2 scripts/random_sampling.py samples/tigress_mba_trace.bin x86_64 20 mba_sampling.json
 ```
 
 It can be specified if memory and/or register locations are inputs/outputs.

@@ -72,7 +72,7 @@ It can be specified if memory and/or register locations are inputs/outputs.
 
 The MBA-obfuscated expressions is equivalent to `(mem_0x2 * mem_0x0) + mem_0x4`, where `mem_i` corresponds to the i-th memory read.
 
-## Manually I/O generation
+## Manual I/O Generation
 
 If random sampling does not work, I/O pairs can be crafted with other methods, e.g., by changing and observing values in a debugger. We define each input and output as follows:
 

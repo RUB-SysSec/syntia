@@ -46,7 +46,11 @@ def synthesise(command, result, index):
     if mc.final_expression:
         ret = rpn_to_infix(mc.final_expression)
         print "{} ({} iterations)".format(rpn_to_infix(mc.final_expression), mc.current_iter)
-        print "{} (simplified)".format(simplify(game.to_z3(mc.final_expression)))
+        try:
+            simplified = simplify(game.to_z3(mc.final_expression))
+            print "{} (simplified)".format(simplified)
+        except:
+            pass
 
     result[index] = ret
 

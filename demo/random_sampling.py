@@ -24,7 +24,7 @@ architecture = check_architecture(sys.argv[2])
 max_sampling = int(sys.argv[3])
 output_file = sys.argv[4]
 
-results = sample(code_file, max_sampling, architecture, mem_inputs=True, mem_outputs=True, reg_inputs=True,
+results = sample(code_file, max_sampling, architecture, mem_inputs=True, mem_outputs=False, reg_inputs=False,
                  reg_outputs=True)
 
 dump_to_json(output_file, results)

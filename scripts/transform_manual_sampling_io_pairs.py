@@ -31,7 +31,7 @@ def build_sampling(data, inputs, outputs):
 	for index in xrange(len(data)):
 		ret[str(index)] = OrderedDict()
 		ret[str(index)]["inputs"] = build_sampling_args(data[index][:len(inputs)], inputs)
-		ret[str(index)]["outputs"] = build_sampling_args(data[index][len(outputs)+1:], outputs)
+		ret[str(index)]["outputs"] = build_sampling_args(data[index][len(inputs):], outputs)
 		
 	return ret
 

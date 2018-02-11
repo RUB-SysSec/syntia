@@ -102,10 +102,10 @@ If random sampling does not work, I/O pairs can be crafted with other methods, e
 ```
 
 
-Each list in `samples` defines the observed I/O pairs in one sampling step. Before synthesis, we use the script `transform_manual_sampling_inputs.py` to transform it into the same output form as the results of `random_sampling.py`.
+Each list in `samples` defines the observed I/O pairs in one sampling step. Before synthesis, we use the script `transform_manual_sampling_io_pairs.py` to transform it into the same output form as the results of `random_sampling.py`.
 
 ```
-python2 scripts/transform_manual_sampling_inputs.py manually_crafted.json sampling.json
+python2 scripts/transform_manual_sampling_io_pairs.py manually_crafted.json sampling.json
 ```
 
 The, we can synthesize it as usual and obtain

@@ -28,7 +28,7 @@ def build_sampling_args(values, args):
 
 def build_sampling(data, inputs, outputs):
 	ret = OrderedDict()
-	for index in xrange(len(data)):
+	for index in range(len(data)):
 		ret[str(index)] = OrderedDict()
 		ret[str(index)]["inputs"] = build_sampling_args(data[index][:len(inputs)], inputs)
 		ret[str(index)]["outputs"] = build_sampling_args(data[index][len(inputs):], outputs)
@@ -45,7 +45,7 @@ def transform_sampling_data(data):
 	return ret
 
 if len(sys.argv) != 3:
-    print "[*] Syntax: <input file> <output file>"
+    print("[*] Syntax: <input file> <output file>")
     exit()
 
 input_file_path = sys.argv[1]
@@ -53,5 +53,5 @@ output_file_path = sys.argv[2]
 
 data = json.load(open(input_file_path), object_pairs_hook=OrderedDict)
 
-open(output_file_path, "wb").write(to_json(transform_sampling_data(data)))
+open(output_file_path, "w").write(to_json(transform_sampling_data(data)))
 

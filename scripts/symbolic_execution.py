@@ -2,7 +2,7 @@ import sys
 from syntia.symbolic_execution.miasm_se import MiasmSEOracle
 
 if len(sys.argv) != 3:
-    print "[*] Syntax: <code file> <architecture>"
+    print("[*] Syntax: <code file> <architecture>")
     exit()
 
 code = open(sys.argv[1]).read()

@@ -57,7 +57,7 @@ def gen_variables(inputs):
     # initialise
     variables = []
     # iterate inputs
-    for index in xrange(len(inputs)):
+    for index in range(len(inputs)):
         # parse
         size = inputs[index][1]
         v_name = inputs[index][2]
@@ -119,7 +119,7 @@ def verify(current, original):
         return False
 
     # check size of elements
-    for index in xrange(len(current)):
+    for index in range(len(current)):
         if current[index][1] != original[index][1]:
             return False
 
@@ -231,7 +231,7 @@ def worker_synthesize_from_assembly_oracle(commands, result, worker_index):
 
     # fill in/out map
     in_out_map = dict()
-    for index in xrange(len(synthesis_inputs)):
+    for index in range(len(synthesis_inputs)):
         current_inputs_sha1 = to_sha1(str(synthesis_inputs[index]).replace("L", ""))
         in_out_map[current_inputs_sha1] = synthesis_outputs[index]
 

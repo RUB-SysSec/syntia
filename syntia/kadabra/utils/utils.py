@@ -5,7 +5,7 @@ def reverse_bytes(s):
     :return: reversed string
     """
     new = []
-    for i in xrange(0, len(s), 2):
+    for i in range(0, len(s), 2):
         new.append(s[i:i + 2])
     return "".join(reversed(new))
 

@@ -7,7 +7,7 @@ from syntia.utils.utils import dump_to_json
 
 # check stdin
 if len(sys.argv) < 3:
-    print "[*] Syntax: <sampling file> <output file>"
+    print("[*] Syntax: <sampling file> <output file>")
     sys.exit(0)
 
 # parse stdin
@@ -25,7 +25,7 @@ workers = []
 task_groups = []
 
 # walk over outputs
-for output_number in xrange(assembly_synthesizer.number_of_outputs):
+for output_number in range(assembly_synthesizer.number_of_outputs):
     # prepare output configuration
     #parameters, task_group = assembly_synthesizer.prepare_output_synthesis(output_number)
     parameters, task_group = assembly_synthesizer.prepare_output_synthesis(0)
@@ -38,7 +38,7 @@ synthesis_results = assembly_synthesizer.synthesize_parallel(worker_parameters, 
 
 # prepare output
 results = OrderedDict()
-for index in xrange(len(synthesis_results)):
+for index in range(len(synthesis_results)):
     results[index] = synthesis_results[index]
 
 # write to json file

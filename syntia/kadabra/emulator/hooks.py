@@ -41,8 +41,8 @@ def hook_mem_access(uc, access, address, size, value, emu):
     if access == UC_MEM_WRITE:
 
         if emu.verbosity_level > 1:
-            print "Instruction 0x{:x} writes value 0x{:x} with 0x{:x} bytes into 0x{:x}".format(current_address, value,
-                                                                                                size, address)
+            print("Instruction 0x{:x} writes value 0x{:x} with 0x{:x} bytes into 0x{:x}".format(current_address, value,
+                                                                                                size, address))
         value_hex = int_to_hex(value, size)
         prev_value = addr_to_int(emu.mem_read(address, size)) if address in emu.memory else 0
         emu.add_to_emulator_mem(address, value_hex)
@@ -81,8 +81,8 @@ def hook_mem_access(uc, access, address, size, value, emu):
         prev_value = value
 
         if emu.verbosity_level > 1:
-            print "Instruction 0x{:x} reads value 0x{:x} with 0x{:x} bytes from 0x{:x}".format(current_address, value,
-                                                                                               size, address)
+            print("Instruction 0x{:x} reads value 0x{:x} with 0x{:x} bytes from 0x{:x}".format(current_address, value,
+                                                                                               size, address))
     if emu.memory_trace:
         emu.memory_tracer.add_trace(current_address, access, address, prev_value, value, size)
 
@@ -103,7 +103,7 @@ def hook_code(uc, address, size, emu):
                 return False
 
     if emu.verbosity_level >= 1:
-        print "0x{:x};{}".format(address, opcode.encode("hex"))
+        print("0x{:x};{}".format(address, opcode.encode("hex")))
 
     # handle breakpoint
     if emu.instruction_breakpoints_enabled and address in emu.instruction_breakpoints:
@@ -148,7 +148,7 @@ def hook_block(uc, address, size, emu):
             emu.stop_execution()
 
     if emu.verbosity_level > 1:
-        print "Basic block at 0x{:x}".format(address)
+        print("Basic block at 0x{:x}".format(address))
 
     if emu.basic_block_trace:
         emu.code_tracer.add_basic_block_trace(address, opcodes, size)

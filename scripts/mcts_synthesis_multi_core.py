@@ -45,10 +45,10 @@ def synthesise(command, result, index):
 
     if mc.final_expression:
         ret = rpn_to_infix(mc.final_expression)
-        print "{} ({} iterations)".format(rpn_to_infix(mc.final_expression), mc.current_iter)
+        print("{} ({} iterations)".format(rpn_to_infix(mc.final_expression), mc.current_iter))
         try:
             simplified = simplify(game.to_z3(mc.final_expression))
-            print "{} (simplified)".format(simplified)
+            print("{} (simplified)".format(simplified))
         except:
             pass
 
@@ -56,7 +56,7 @@ def synthesise(command, result, index):
 
 
 variables = []
-for var_index in xrange(3):
+for var_index in range(3):
     v = Variable("V.{}".format(var_index), BITSIZE)
     variables.append(v)
 
@@ -70,7 +70,7 @@ task_groups = []
 workers = []
 commands = []
 
-for index in xrange(1):
+for index in range(1):
     task_group = "TG"
     task_groups.append(task_group)
 
@@ -84,8 +84,8 @@ for index in xrange(1):
 
 number_of_tasks = len(commands)
 
-print "Starting main synthesis"
-print number_of_tasks
+print("Starting main synthesis")
+print(number_of_tasks)
 
 paralleliser = Paralleliser(commands, workers, number_of_tasks, task_groups)
 
@@ -94,4 +94,4 @@ paralleliser.execute()
 
 end_time = time()
 
-print "Synthesis finished in {} seconds".format(end_time - start_time)
+print("Synthesis finished in {} seconds".format(end_time - start_time))

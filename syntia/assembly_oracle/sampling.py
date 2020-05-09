@@ -70,7 +70,7 @@ def store_input_data(args, input_values=[]):
     """
     ret = OrderedDict()
 
-    for index in xrange(len(args)):
+    for index in range(len(args)):
         ret[index] = OrderedDict()
 
         # input/output location, size and value
@@ -167,7 +167,7 @@ def sample(code, max_sampling, architecture, reg_inputs=True, reg_outputs=True, 
         oracle_inputs = []
 
         # store fixed inputs
-        for index in xrange(len(assembly_oracle.current_inputs)):
+        for index in range(len(assembly_oracle.current_inputs)):
             # get random input
             random_input = getrandbits(64) % 2 ** (8 * assembly_oracle.current_inputs[index][1])
             # add to list

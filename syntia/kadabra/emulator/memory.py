@@ -8,18 +8,18 @@ class Memory(dict):
         self.mapping_requests = dict()
 
     def map(self, addr, size):
-        for offset in xrange(size):
+        for offset in range(size):
             self.mapped.add(addr + offset)
 
         self.mapping_requests[addr] = size
 
 
     def unmap(self, addr, size):
-        for offset in xrange(size):
+        for offset in range(size):
             self.mapped.remove(addr + offset)
 
     def is_mapped(self, addr, size):
-        for offset in xrange(size):
+        for offset in range(size):
             if (addr + offset) not in self.mapped:
                 return False
         return True

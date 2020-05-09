@@ -116,10 +116,10 @@ class AssemblyOracle(object):
                 mem_read_index += 1
                 # already read or written before read
                 if state.mem_addr in already_read or any(
-                        ((state.mem_addr + offset) in written_before_read for offset in xrange(state.size))):
+                        ((state.mem_addr + offset) in written_before_read for offset in range(state.size))):
                     continue
                 # add to already read
-                for offset in xrange(state.size):
+                for offset in range(state.size):
                     addr = state.mem_addr + offset
                     already_read.add(addr)
                 # add to valid memory reads
@@ -128,7 +128,7 @@ class AssemblyOracle(object):
                 memory_reads.append((mem_read_index, state.size, state.value))
             else:
                 # add memory writes
-                for offset in xrange(state.size):
+                for offset in range(state.size):
                     addr = state.mem_addr + offset
                     written_before_read.add(addr)
 
@@ -287,7 +287,7 @@ class AssemblyOracle(object):
         constants = set()
 
         for instr in self.md.disasm(self.current_code, 0x1000):
-            print instr.mnemonic, instr.op_str
+            print(instr.mnemonic, instr.op_str)
             # if jump, continue
             if [group for group in instr.groups if group == X86_GRP_JUMP]:
                 continue

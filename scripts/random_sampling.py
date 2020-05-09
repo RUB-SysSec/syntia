@@ -11,12 +11,12 @@ def check_architecture(architecture):
     elif architecture == "x86_64":
         return ARCH_X86_64
     else:
-        print ("Invalid architecture: {}".format(architecture))
+        print("Invalid architecture: {}".format(architecture))
         exit()
 
 
 if len(sys.argv) != 5:
-    print "[*] Syntax: <code file> <architecture> <number of sampling iterations> <output file>"
+    print("[*] Syntax: <code file> <architecture> <number of sampling iterations> <output file>")
     exit()
 
 code_file = open(sys.argv[1]).read()

@@ -11,10 +11,20 @@ The framework is based on our [paper](https://www.usenix.org/system/files/confer
 }
 ```
 
-# Branch
+# Reduced Version
 
-This branch is a reduced version that is only used for expression synthesis.
+This fork is a version of Syntia that is reduced to its MCTS core. It can be used to play with expression synthesis and different synthesis configurations.
+
+To play around, the `scripts/io_map.py` allows to define I/O relationships; the synthesizer then tries to find an corresponding expression.
+
+```
+# example I/O map
+in_out_map = {
+    (1, 1, 1): 2,
+    (1, 2, 3): 3,
+}
+```
 
 # Contact
 
-tim DOT blazytko AT rub DOT de
+tim AT blazytko DOT to

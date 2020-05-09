@@ -11,6 +11,13 @@ The framework is based on our [paper](https://www.usenix.org/system/files/confer
 }
 ```
 
+# Installation
+
+```
+pip install -r requirements.txt
+python setup.py install
+```
+
 # Reduced Version
 
 This fork is a version of Syntia that is reduced to its MCTS core. It can be used to play with expression synthesis and different synthesis configurations.

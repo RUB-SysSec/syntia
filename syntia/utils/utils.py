@@ -16,4 +16,4 @@ def dump_to_json(file_path, data):
     :param file_path: file path
     :param data: nested dict
     """
-    open(file_path, "wb").write(to_json(data))
+    open(file_path, "w").write(to_json(data))

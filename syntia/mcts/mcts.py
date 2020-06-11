@@ -429,7 +429,7 @@ class MCTS(object):
         current_layer_states = deque([node_copy])
 
         # if nesting level > 1
-        for current_layer in xrange(self.nesting_level - 1):
+        for current_layer in range(self.nesting_level - 1):
             # states of the next layer
             next_layer_states = deque()
             # iterate current layer
@@ -641,7 +641,7 @@ class MCTS(object):
         else:
             output = "{} ({} iterations) (reward: {})".format(rpn_to_infix(expr), self.current_iter, reward)
 
-        print output
+        print(output)
 
     def finish_synthesis(self, expr):
         """

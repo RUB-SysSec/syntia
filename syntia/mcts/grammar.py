@@ -63,7 +63,7 @@ class Grammar(object):
 
     def gen_rules(self):
         rules = OrderedDict()
-        for index in xrange(len(self.bit_sizes)):
+        for index in range(len(self.bit_sizes)):
             size = self.bit_sizes[index]
             non_terminal = self.non_terminals[index]
             rules[non_terminal] = self.gen_size_rules(size)

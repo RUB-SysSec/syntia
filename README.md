@@ -11,190 +11,27 @@ The framework is based on our [paper](https://www.usenix.org/system/files/confer
 }
 ```
 
-
-# Usage
-
-The `scripts` demonstrate the usage of the framework.
-
-## Symbolic execution
-
-To symbolically execute an instruction trace of an obfuscated expressions, use
+# Installation
 
 ```
-python2 scripts/symbolic_execution.py samples/tigress_mba_trace.bin x86_64
-
+pip install -r requirements.txt
+python setup.py install
 ```
 
-In this example, the expression is obfuscated via Mixed Boolean-Arithmetic (MBA). The final result is stored in `EAX`.
+# Reduced Version
 
-## Random Sampling
+This fork is a version of Syntia that is reduced to its MCTS core. It can be used to play with expression synthesis and different synthesis configurations.
 
-`random_sampling.py` generates random I/O pairs for a piece of code. Its output is a JSON file. To sample 20 times, use 
-
-```
-python2 scripts/random_sampling.py samples/tigress_mba_trace.bin x86_64 20 mba_sampling.json
-```
-
-It can be specified if memory and/or register locations are inputs/outputs.
-
-## Program Synthesis for Obfuscated Code
-
-`sample_synthesis` uses the I/O samples and synthesizes the semantics of each input. It is possible to synthesize only specific outputs (e.g., `EAX`):
+To play around, the `scripts/io_map.py` allows to define I/O relationships; the synthesizer then tries to find an corresponding expression.
 
 ```
-{
- "output": {
-     "name": "EAX", 
-     "number": 0, 
-     "size": 32
- }, 
- "top_non_terminal": {
-     "expression": {
-         "infix": "((u32 * u32) + (u32 * 1))"
-     }, 
-     "reward": 1.0
- }, 
- "top_terminal": {
-     "expression": {
-         "infix": "((mem_0x2 * mem_0x0) + (mem_0x4 * 1))"
-     }, 
-     "reward": 1.0
- }, 
- "successful": "yes", 
- "result": {
-     "final_expression": {
-         "infix": "((mem_0x2 * mem_0x0) + (mem_0x4 * 1))", 
-         "simplified": "((mem_0x2 * mem_0x0) + (mem_0x4 * 1))"
-     }
- }
+# example I/O map
+in_out_map = {
+    (1, 1, 1): 2,
+    (1, 2, 3): 3,
 }
 ```
-
-The MBA-obfuscated expressions is equivalent to `(mem_0x2 * mem_0x0) + mem_0x4`, where `mem_i` corresponds to the i-th memory read.
-
-## Manual I/O Generation
-
-If random sampling does not work, I/O pairs can be crafted with other methods, e.g., by changing and observing values in a debugger. We define each input and output as follows:
-
-```
-{
-    "inputs": {
-        "0": {
-            "location": "mem0", 
-            "size": "0x4"
-        }, 
-        "1": {
-            "location": "mem1", 
-            "size": "0x4"
-        }
-    },
-    "outputs": {
-        "0": {
-            "location": "EAX", 
-            "size": "0x4"
-        }
-    }, 
-    "samples": [["0x2","0x6", "0xFFFFFFF9"],
-                ["0x14e","0x213","0xFFFFFc2d"],
-                ["0x3ed","0x2710","0xFFFFFBC8"]
-                ]
-}
-```
-
-
-Each list in `samples` defines the observed I/O pairs in one sampling step. Before synthesis, we use the script `transform_manual_sampling_io_pairs.py` to transform it into the same output form as the results of `random_sampling.py`.
-
-```
-python2 scripts/transform_manual_sampling_io_pairs.py manually_crafted.json sampling.json
-```
-
-The, we can synthesize it as usual and obtain
-
-```
-{
-    "0": {
-        "output": {
-            "name": "EAX", 
-            "number": 0, 
-            "size": 32
-        }, 
-        "top_non_terminal": {
-            "expression": {
-                "infix": "(~ ((u32 + u32) ^ (u32 & u32)))"
-            }, 
-            "reward": 1.0
-        }, 
-        "top_terminal": {
-            "expression": {
-                "infix": "(~ ((mem0 + mem0) ^ (mem0 & mem0)))"
-            }, 
-            "reward": 1.0
-        }, 
-        "successful": "yes", 
-        "result": {
-            "final_expression": {
-                "infix": "(~ ((mem0 + mem0) ^ (mem0 & mem0)))", 
-                "simplified": "~(2*mem0 ^ mem0)"
-            }
-        }
-    }
-}
-```
-
-## General Program Synthesis
-
-`mcts_synthesis_multi_core.py` shows a basic usage of the synthesis algorithm. It can be used to test the synthesis of different expressions (which can be defined in `oracle`). Furthermore, it allows to test the synthesis behavior for different configuration parameters.
-
-# Structure
-
-Syntia's code is structured in three parts: symbolic execution of obfuscated code, generating I/O pairs from binary code and the program synthesizer.
-
-## symbolic_execution
-
-A wrapper around Miasm's symbolic execution engine. We use it to symbolically execute pieces of obfuscated code.
-
-## kadabra
-
-Kadabra is our a blanked execution framework which is built on top of Unicorn Engine. Besides others, it supports instruction tracing, enforcing execution paths and tracing memory modifications. 
-
-## assembly_oracle
-The assembly oracle utilizes binary code as a black box and generates I/O pairs for the synthesizer. It is built upon Kadabra.
-
-## mcts
-
-It is the the core of Syntia: Monte Carlo Tree Search based program synthesis. Given I/O pairs from the assembly oracle, the synthesizer finds semantically equivalent non-obfuscated code.
-
-## utils
-
-Provides basic functionality that is used across the different subprojects. Furthermore, it contains some code that illustrates the parsing and usage of the random sampling results for program synthesis.
-.....
-
-
-# Setup
-
-## Dependencies
-
-The file `install_deps.sh` provides the build process of our dependencies. Major pars of our framework can be used without all dependencies. In particular, we use
-
-- [Capstone disassembly framework](https://github.com/aquynh/capstone)( (used by our assembly oracle)
-- [Unicorn CPU emulator framework](https://github.com/unicorn-engine/unicorn) (used by Kadabra and our assembly oracle)
-- [Z3 theorem prover + python bindings](https://github.com/Z3Prover/z3) (used by our synthesizer for expression simplification)
-- [Miasm](https://github.com/cea-sec/miasm) (for symbolic execution)
-
-## Docker
-
-We provide a Docker container that contains all dependencies (but not Syntia itself). To build it, use the following commands:
-
-```
-# build docker container
-docker build -t <name of container> <directory with docker file>
-
-# run docker container interactively
-docker run -it <container name> /bin/bash
-```
-
-The containers superuser password is `root`.
 
 # Contact
 
-tim DOT blazytko AT rub DOT de
+tim AT blazytko DOT to

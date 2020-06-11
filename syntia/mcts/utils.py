@@ -253,7 +253,7 @@ def write_graph(path, graph):
     :param path: file path
     :param graph: DiGraph
     """
-    open(path, "wb").write(graph.dot())
+    open(path, "w").write(graph.dot())
 
 
 def replace_variables(s, variables=[], values=[], replacements=OrderedDict()):
@@ -294,13 +294,13 @@ def get_random_inputs(number_of_registers, number_of_inputs):
     """
     # input set for oracle and synthesis comparisons
     l = 10
-    edge_cases = [[getrandbits(1) for x in xrange(l)],
-                  [getrandbits(2) for x in xrange(l)],
-                  [getrandbits(4) for x in xrange(l)],
-                  [getrandbits(8) for x in xrange(l)],
-                  [getrandbits(16) for x in xrange(l)],
-                  [getrandbits(32) for x in xrange(l)],
-                  [getrandbits(64) for x in xrange(l)]]
+    edge_cases = [[getrandbits(1) for x in range(l)],
+                  [getrandbits(2) for x in range(l)],
+                  [getrandbits(4) for x in range(l)],
+                  [getrandbits(8) for x in range(l)],
+                  [getrandbits(16) for x in range(l)],
+                  [getrandbits(32) for x in range(l)],
+                  [getrandbits(64) for x in range(l)]]
     # join to large list
     edge_cases = list(chain.from_iterable(edge_cases))
 
@@ -313,7 +313,7 @@ def get_random_inputs(number_of_registers, number_of_inputs):
     # initialise list of lists
     inputs = []
     # number of random samples
-    for i in xrange(number_of_inputs):
+    for i in range(number_of_inputs):
         # current list
         current = []
 
@@ -339,4 +339,4 @@ def to_sha1(s):
     :param s: string
     :return:  str, sha1 of s
     """
-    return sha1(s).hexdigest()
+    return sha1(s.encode("ascii")).hexdigest()
